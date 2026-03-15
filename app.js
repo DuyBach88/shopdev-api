@@ -1,11 +1,18 @@
 const express = require("express");
+const morgan = require("morgan");
+const helmet = require("helmet");
 const app = express();
-const port = 3000;
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
+// init middwares
+app.use(morgan("dev"));
+app.use(helmet());
+// init middware
+// init db
+require("./dbs/init.mongodb");
+//init routers
+app.get("/", (req, res, next) => {
+  return res.status(200).json({
+    message: "welcome to my api",
+  });
 });
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+//handling errors
+module.exports = app;
