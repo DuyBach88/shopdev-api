@@ -6,14 +6,12 @@ const app = express();
 // init middwares
 app.use(morgan("dev"));
 app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // init middware
 // init db
 require("./dbs/init.mongodb");
 //init routers
-app.get("/", (req, res, next) => {
-  return res.status(200).json({
-    message: "welcome to my api",
-  });
-});
+app.use('',require('./routers'))
 //handling errors
 module.exports = app;
